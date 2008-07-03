@@ -1,0 +1,64 @@
+
+-- ./vector-add.apk
+pragma source_file_name(vector.add, spec_file_name => "vector-add.ads");
+pragma source_file_name(vector.add, body_file_name => "vector-add.adb");
+
+-- ./vector-add_scalar.apk
+pragma source_file_name(vector.add_scalar, spec_file_name => "vector-add_scalar.ads");
+pragma source_file_name(vector.add_scalar, body_file_name => "vector-add_scalar.adb");
+
+-- ./vector-angle.apk
+pragma source_file_name(vector.angle, spec_file_name => "vector-angle.ads");
+pragma source_file_name(vector.angle, body_file_name => "vector-angle.adb");
+
+-- ./vector-angle_norm.apk
+pragma source_file_name(vector.angle_norm, spec_file_name => "vector-angle_norm.ads");
+pragma source_file_name(vector.angle_norm, body_file_name => "vector-angle_norm.adb");
+
+-- ./vector-dist.apk
+pragma source_file_name(vector.dist, spec_file_name => "vector-dist.ads");
+pragma source_file_name(vector.dist, body_file_name => "vector-dist.adb");
+
+-- ./vector-div.apk
+pragma source_file_name(vector.div, spec_file_name => "vector-div.ads");
+pragma source_file_name(vector.div, body_file_name => "vector-div.adb");
+
+-- ./vector-div_scalar.apk
+pragma source_file_name(vector.div_scalar, spec_file_name => "vector-div_scalar.ads");
+pragma source_file_name(vector.div_scalar, body_file_name => "vector-div_scalar.adb");
+
+-- ./vector-dot_product.apk
+pragma source_file_name(vector.dot_product, spec_file_name => "vector-dot_product.ads");
+pragma source_file_name(vector.dot_product, body_file_name => "vector-dot_product.adb");
+
+-- ./vector-magnitude.apk
+pragma source_file_name(vector.magnitude, spec_file_name => "vector-magnitude.ads");
+pragma source_file_name(vector.magnitude, body_file_name => "vector-magnitude.adb");
+
+-- ./vector-mult.apk
+pragma source_file_name(vector.mult, spec_file_name => "vector-mult.ads");
+pragma source_file_name(vector.mult, body_file_name => "vector-mult.adb");
+
+-- ./vector-mult_scalar.apk
+pragma source_file_name(vector.mult_scalar, spec_file_name => "vector-mult_scalar.ads");
+pragma source_file_name(vector.mult_scalar, body_file_name => "vector-mult_scalar.adb");
+
+-- ./vector-negate.apk
+pragma source_file_name(vector.negate, spec_file_name => "vector-negate.ads");
+pragma source_file_name(vector.negate, body_file_name => "vector-negate.adb");
+
+-- ./vector-normalize.apk
+pragma source_file_name(vector.normalize, spec_file_name => "vector-normalize.ads");
+pragma source_file_name(vector.normalize, body_file_name => "vector-normalize.adb");
+
+-- ./vector-sub_scalar.apk
+pragma source_file_name(vector.sub_scalar, spec_file_name => "vector-sub_scalar.ads");
+pragma source_file_name(vector.sub_scalar, body_file_name => "vector-sub_scalar.adb");
+
+-- ./vector-sum.apk
+pragma source_file_name(vector.sum, spec_file_name => "vector-sum.ads");
+pragma source_file_name(vector.sum, body_file_name => "vector-sum.adb");
+
+-- ./vector-zero.apk
+pragma source_file_name(vector.zero, spec_file_name => "vector-zero.ads");
+pragma source_file_name(vector.zero, body_file_name => "vector-zero.adb");
