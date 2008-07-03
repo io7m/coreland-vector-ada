@@ -1,4 +1,8 @@
 
+-- ./vector-absolute.apk
+pragma source_file_name(vector.absolute, spec_file_name => "vector-absolute.ads");
+pragma source_file_name(vector.absolute, body_file_name => "vector-absolute.adb");
+
 -- ./vector-add.apk
 pragma source_file_name(vector.add, spec_file_name => "vector-add.ads");
 pragma source_file_name(vector.add, body_file_name => "vector-add.adb");
@@ -14,6 +18,10 @@ pragma source_file_name(vector.angle, body_file_name => "vector-angle.adb");
 -- ./vector-angle_norm.apk
 pragma source_file_name(vector.angle_norm, spec_file_name => "vector-angle_norm.ads");
 pragma source_file_name(vector.angle_norm, body_file_name => "vector-angle_norm.adb");
+
+-- ./vector-assign.apk
+pragma source_file_name(vector.assign, spec_file_name => "vector-assign.ads");
+pragma source_file_name(vector.assign, body_file_name => "vector-assign.adb");
 
 -- ./vector-dist.apk
 pragma source_file_name(vector.dist, spec_file_name => "vector-dist.ads");

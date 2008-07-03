@@ -3,6 +3,7 @@ vector-add.o
 vector-add_scalar.o
 vector-angle.o
 vector-angle_norm.o
+vector-assign.o
 vector-dist.o
 vector-div.o
 vector-div_scalar.o

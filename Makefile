@@ -7,6 +7,8 @@ UNIT_TESTS/add_double UNIT_TESTS/add_double.ali UNIT_TESTS/add_double.o \
 UNIT_TESTS/add_single UNIT_TESTS/add_single.ali UNIT_TESTS/add_single.o \
 UNIT_TESTS/addsc_double UNIT_TESTS/addsc_double.ali UNIT_TESTS/addsc_double.o \
 UNIT_TESTS/addsc_single UNIT_TESTS/addsc_single.ali UNIT_TESTS/addsc_single.o \
+UNIT_TESTS/assi_double UNIT_TESTS/assi_double.ali UNIT_TESTS/assi_double.o \
+UNIT_TESTS/assi_single UNIT_TESTS/assi_single.ali UNIT_TESTS/assi_single.o \
 UNIT_TESTS/div_double UNIT_TESTS/div_double.ali UNIT_TESTS/div_double.o \
 UNIT_TESTS/div_single UNIT_TESTS/div_single.ali UNIT_TESTS/div_single.o \
 UNIT_TESTS/divsc_double UNIT_TESTS/divsc_double.ali UNIT_TESTS/divsc_double.o \
@@ -23,16 +25,23 @@ UNIT_TESTS/subsc_single.ali UNIT_TESTS/subsc_single.o UNIT_TESTS/sum_double \
 UNIT_TESTS/sum_double.ali UNIT_TESTS/sum_double.o UNIT_TESTS/sum_single \
 UNIT_TESTS/sum_single.ali UNIT_TESTS/sum_single.o UNIT_TESTS/zero_double \
 UNIT_TESTS/zero_double.ali UNIT_TESTS/zero_double.o UNIT_TESTS/zero_single \
-UNIT_TESTS/zero_single.ali UNIT_TESTS/zero_single.o vector-add.ali vector-add.o \
-vector-add_scalar.ali vector-add_scalar.o vector-angle.ali vector-angle.o \
-vector-angle_norm.ali vector-angle_norm.o vector-dist.ali vector-dist.o \
-vector-div.ali vector-div.o vector-div_scalar.ali vector-div_scalar.o \
-vector-dot_product.ali vector-dot_product.o vector-magnitude.ali \
-vector-magnitude.o vector-mult.ali vector-mult.o vector-mult_scalar.ali \
-vector-mult_scalar.o vector-negate.ali vector-negate.o vector-normalize.ali \
-vector-normalize.o vector-sub.ali vector-sub.o vector-sub_scalar.ali \
-vector-sub_scalar.o vector-sum.ali vector-sum.o vector-zero.ali vector-zero.o \
-vector.a vector.ali vector.o
+UNIT_TESTS/zero_single.ali UNIT_TESTS/zero_single.o vector-absolute.ali \
+vector-absolute.o vector-add.ali vector-add.o vector-add_scalar.ali \
+vector-add_scalar.o vector-angle.ali vector-angle.o vector-angle_norm.ali \
+vector-angle_norm.o vector-assign.ali vector-assign.o vector-dist.ali \
+vector-dist.o vector-div.ali vector-div.o vector-div_scalar.ali \
+vector-div_scalar.o vector-dot_product.ali vector-dot_product.o \
+vector-magnitude.ali vector-magnitude.o vector-mult.ali vector-mult.o \
+vector-mult_scalar.ali vector-mult_scalar.o vector-negate.ali vector-negate.o \
+vector-normalize.ali vector-normalize.o vector-sub.ali vector-sub.o \
+vector-sub_scalar.ali vector-sub_scalar.o vector-sum.ali vector-sum.o \
+vector-zero.ali vector-zero.o vector.a vector.ali vector.o
+
+# Mkf-test
+tests:
+	(cd UNIT_TESTS && make)
+tests_clean:
+	(cd UNIT_TESTS && make clean)
 
 # -- SYSDEPS start
 libs-vector-S:
@@ -103,6 +112,32 @@ ada-compile UNIT_TESTS/addsc_single.adb vector-add_scalar.ads
 
 UNIT_TESTS/addsc_single.o:\
 UNIT_TESTS/addsc_single.ali
+
+UNIT_TESTS/assi_double:\
+ada-bind ada-link UNIT_TESTS/assi_double.ald UNIT_TESTS/assi_double.ali \
+vector.ali vector-assign.ali
+	./ada-bind UNIT_TESTS/assi_double.ali
+	./ada-link UNIT_TESTS/assi_double UNIT_TESTS/assi_double.ali
+
+UNIT_TESTS/assi_double.ali:\
+ada-compile UNIT_TESTS/assi_double.adb vector-assign.ads
+	./ada-compile UNIT_TESTS/assi_double.adb
+
+UNIT_TESTS/assi_double.o:\
+UNIT_TESTS/assi_double.ali
+
+UNIT_TESTS/assi_single:\
+ada-bind ada-link UNIT_TESTS/assi_single.ald UNIT_TESTS/assi_single.ali \
+vector.ali vector-assign.ali
+	./ada-bind UNIT_TESTS/assi_single.ali
+	./ada-link UNIT_TESTS/assi_single UNIT_TESTS/assi_single.ali
+
+UNIT_TESTS/assi_single.ali:\
+ada-compile UNIT_TESTS/assi_single.adb vector-assign.ads
+	./ada-compile UNIT_TESTS/assi_single.adb
+
+UNIT_TESTS/assi_single.o:\
+UNIT_TESTS/assi_single.ali
 
 UNIT_TESTS/div_double:\
 ada-bind ada-link UNIT_TESTS/div_double.ald UNIT_TESTS/div_double.ali \
@@ -371,6 +406,13 @@ conf-cc
 mk-systype:\
 conf-cc
 
+vector-absolute.ali:\
+ada-compile vector-absolute.adb vector-absolute.ads
+	./ada-compile vector-absolute.adb
+
+vector-absolute.o:\
+vector-absolute.ali
+
 vector-add.ali:\
 ada-compile vector-add.adb vector-add.ads
 	./ada-compile vector-add.adb
@@ -398,6 +440,13 @@ ada-compile vector-angle_norm.adb vector-angle_norm.ads
 
 vector-angle_norm.o:\
 vector-angle_norm.ali
+
+vector-assign.ali:\
+ada-compile vector-assign.adb vector-assign.ads
+	./ada-compile vector-assign.adb
+
+vector-assign.o:\
+vector-assign.ali
 
 vector-dist.ali:\
 ada-compile vector-dist.adb vector-dist.ads
@@ -491,16 +540,16 @@ vector-zero.o:\
 vector-zero.ali
 
 vector.a:\
-cc-slib vector.sld vector-add.o vector-add_scalar.o vector-angle.o \
-vector-angle_norm.o vector-dist.o vector-div.o vector-div_scalar.o \
-vector-dot_product.o vector-magnitude.o vector-mult.o vector-mult_scalar.o \
-vector-negate.o vector-normalize.o vector-sub.o vector-sub_scalar.o \
-vector-sum.o vector-zero.o vector.o
-	./cc-slib vector vector-add.o vector-add_scalar.o vector-angle.o \
-	vector-angle_norm.o vector-dist.o vector-div.o vector-div_scalar.o \
-	vector-dot_product.o vector-magnitude.o vector-mult.o vector-mult_scalar.o \
-	vector-negate.o vector-normalize.o vector-sub.o vector-sub_scalar.o \
-	vector-sum.o vector-zero.o vector.o
+cc-slib vector.sld vector-absolute.o vector-add.o vector-add_scalar.o \
+vector-angle.o vector-angle_norm.o vector-assign.o vector-dist.o vector-div.o \
+vector-div_scalar.o vector-dot_product.o vector-magnitude.o vector-mult.o \
+vector-mult_scalar.o vector-negate.o vector-normalize.o vector-sub.o \
+vector-sub_scalar.o vector-sum.o vector-zero.o vector.o
+	./cc-slib vector vector-absolute.o vector-add.o vector-add_scalar.o \
+	vector-angle.o vector-angle_norm.o vector-assign.o vector-dist.o vector-div.o \
+	vector-div_scalar.o vector-dot_product.o vector-magnitude.o vector-mult.o \
+	vector-mult_scalar.o vector-negate.o vector-normalize.o vector-sub.o \
+	vector-sub_scalar.o vector-sum.o vector-zero.o vector.o
 
 vector.ali:\
 ada-compile vector.ads
@@ -509,13 +558,15 @@ ada-compile vector.ads
 vector.o:\
 vector.ali
 
-clean-all: sysdeps_clean obj_clean ext_clean
+clean-all: sysdeps_clean tests_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
 	rm -f UNIT_TESTS/add_double UNIT_TESTS/add_double.ali UNIT_TESTS/add_double.o \
 	UNIT_TESTS/add_single UNIT_TESTS/add_single.ali UNIT_TESTS/add_single.o \
 	UNIT_TESTS/addsc_double UNIT_TESTS/addsc_double.ali UNIT_TESTS/addsc_double.o \
 	UNIT_TESTS/addsc_single UNIT_TESTS/addsc_single.ali UNIT_TESTS/addsc_single.o \
+	UNIT_TESTS/assi_double UNIT_TESTS/assi_double.ali UNIT_TESTS/assi_double.o \
+	UNIT_TESTS/assi_single UNIT_TESTS/assi_single.ali UNIT_TESTS/assi_single.o \
 	UNIT_TESTS/div_double UNIT_TESTS/div_double.ali UNIT_TESTS/div_double.o \
 	UNIT_TESTS/div_single UNIT_TESTS/div_single.ali UNIT_TESTS/div_single.o \
 	UNIT_TESTS/divsc_double UNIT_TESTS/divsc_double.ali UNIT_TESTS/divsc_double.o \
@@ -524,25 +575,26 @@ obj_clean:
 	UNIT_TESTS/mult_single UNIT_TESTS/mult_single.ali UNIT_TESTS/mult_single.o \
 	UNIT_TESTS/multsc_double UNIT_TESTS/multsc_double.ali \
 	UNIT_TESTS/multsc_double.o UNIT_TESTS/multsc_single \
-	UNIT_TESTS/multsc_single.ali UNIT_TESTS/multsc_single.o UNIT_TESTS/sub_double \
-	UNIT_TESTS/sub_double.ali UNIT_TESTS/sub_double.o UNIT_TESTS/sub_single \
-	UNIT_TESTS/sub_single.ali UNIT_TESTS/sub_single.o
-	rm -f UNIT_TESTS/subsc_double UNIT_TESTS/subsc_double.ali \
-	UNIT_TESTS/subsc_double.o UNIT_TESTS/subsc_single UNIT_TESTS/subsc_single.ali \
-	UNIT_TESTS/subsc_single.o UNIT_TESTS/sum_double UNIT_TESTS/sum_double.ali \
-	UNIT_TESTS/sum_double.o UNIT_TESTS/sum_single UNIT_TESTS/sum_single.ali \
-	UNIT_TESTS/sum_single.o UNIT_TESTS/zero_double UNIT_TESTS/zero_double.ali \
-	UNIT_TESTS/zero_double.o UNIT_TESTS/zero_single UNIT_TESTS/zero_single.ali \
-	UNIT_TESTS/zero_single.o vector-add.ali vector-add.o vector-add_scalar.ali \
-	vector-add_scalar.o vector-angle.ali vector-angle.o vector-angle_norm.ali \
-	vector-angle_norm.o vector-dist.ali vector-dist.o vector-div.ali vector-div.o \
-	vector-div_scalar.ali vector-div_scalar.o vector-dot_product.ali \
-	vector-dot_product.o vector-magnitude.ali vector-magnitude.o vector-mult.ali \
-	vector-mult.o vector-mult_scalar.ali vector-mult_scalar.o vector-negate.ali \
-	vector-negate.o vector-normalize.ali vector-normalize.o vector-sub.ali \
-	vector-sub.o vector-sub_scalar.ali vector-sub_scalar.o vector-sum.ali \
-	vector-sum.o vector-zero.ali vector-zero.o vector.a vector.ali
-	rm -f vector.o
+	UNIT_TESTS/multsc_single.ali UNIT_TESTS/multsc_single.o
+	rm -f UNIT_TESTS/sub_double UNIT_TESTS/sub_double.ali UNIT_TESTS/sub_double.o \
+	UNIT_TESTS/sub_single UNIT_TESTS/sub_single.ali UNIT_TESTS/sub_single.o \
+	UNIT_TESTS/subsc_double UNIT_TESTS/subsc_double.ali UNIT_TESTS/subsc_double.o \
+	UNIT_TESTS/subsc_single UNIT_TESTS/subsc_single.ali UNIT_TESTS/subsc_single.o \
+	UNIT_TESTS/sum_double UNIT_TESTS/sum_double.ali UNIT_TESTS/sum_double.o \
+	UNIT_TESTS/sum_single UNIT_TESTS/sum_single.ali UNIT_TESTS/sum_single.o \
+	UNIT_TESTS/zero_double UNIT_TESTS/zero_double.ali UNIT_TESTS/zero_double.o \
+	UNIT_TESTS/zero_single UNIT_TESTS/zero_single.ali UNIT_TESTS/zero_single.o \
+	vector-absolute.ali vector-absolute.o vector-add.ali vector-add.o \
+	vector-add_scalar.ali vector-add_scalar.o vector-angle.ali vector-angle.o \
+	vector-angle_norm.ali vector-angle_norm.o vector-assign.ali vector-assign.o \
+	vector-dist.ali vector-dist.o vector-div.ali vector-div.o vector-div_scalar.ali \
+	vector-div_scalar.o vector-dot_product.ali vector-dot_product.o \
+	vector-magnitude.ali vector-magnitude.o vector-mult.ali vector-mult.o \
+	vector-mult_scalar.ali vector-mult_scalar.o
+	rm -f vector-negate.ali vector-negate.o vector-normalize.ali vector-normalize.o \
+	vector-sub.ali vector-sub.o vector-sub_scalar.ali vector-sub_scalar.o \
+	vector-sum.ali vector-sum.o vector-zero.ali vector-zero.o vector.a vector.ali \
+	vector.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-systype mk-ctxt
 
