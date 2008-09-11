@@ -10,12 +10,12 @@ procedure add_double is
 
   use type v16.scalar_d_t;
 
-  base_a: constant v16.vector_d_t := (others => 1.0);
-  base_b: constant v16.vector_d_t := (others => 2.0);
-  base_r: v16.vector_d_t := (others => 3.0);
-   tmp_a: v16.vector_d_t;
+  base_a : constant v16.vector_d_t := (others => 1.0);
+  base_b : constant v16.vector_d_t := (others => 2.0);
+  base_r : v16.vector_d_t := (others => 3.0);
+  tmp_a  : v16.vector_d_t;
 
-  testno: integer := 0;
+  testno : integer := 0;
 
   procedure sys_exit (e: integer);
   pragma import (c, sys_exit, "exit");
@@ -39,13 +39,13 @@ procedure add_double is
     io.put_line ("[" & s_tnum & "][" & s_index & "] " & s_want & " = " & s_got);
   end pass;
 
-  procedure check is
+  procedure check (vec_a : v16.vector_d_t) is
   begin
-    for index in tmp_a'range loop
-      if tmp_a (index) /= base_r (index) then
-        fail (want => base_r (index), got => tmp_a (index), index => index);
+    for index in vec_a'range loop
+      if vec_a (index) /= base_r (index) then
+        fail (want => base_r (index), got => vec_a (index), index => index);
       else
-        pass (want => base_r (index), got => tmp_a (index), index => index);
+        pass (want => base_r (index), got => vec_a (index), index => index);
       end if;
     end loop;
     testno := testno + 1;
@@ -59,7 +59,7 @@ begin
 
   tmp_a := base_a;
   v16_add.d (tmp_a, base_b);
-  check;
+  check (tmp_a);
 
   --
   -- add, external storage
@@ -67,6 +67,6 @@ begin
 
   tmp_a := base_a;
   v16_add.d_ext (base_a, base_b, tmp_a);
-  check;
+  check (tmp_a);
 
 end add_double;
